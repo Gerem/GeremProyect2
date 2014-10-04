@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">YouMp3</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="search">Search</string>
+    <string name="action_menu_downloads">Downloads</string>
+    <string name="views">Views</string>
+    <string name="downloadVideo">Download Video</string>
+    <string name="downloadMp3">Download Mp3</string>
+    <string name="downloadingNoti">Downloading..</string>
+    <string name="invalidVideo">YouTube video is invalid. Try another one</string>
+    <string name="open">Open</string>
+    <string name="restart">Restart</string>
+    <string name="failed">Failed</string>
+	<string name="complete">Complete</string>
+	<string name="noResult">No results for searched criteria</string>
+	<string name="downloadInProgress">There is another downloading in progress</string>
+	<string name="ad_footer">ca-app-pub-5856956782212778/9382229156</string>
+	<string name="ad_fullscreen">ca-app-pub-5856956782212778/7765895154</string>
+</resources>

@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:background="#F0F0F0"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/downloadLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:visibility="gone" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/custom_background"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:paddingLeft="5dp" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_horizontal"
+                android:background="@drawable/ic_launcher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:text="Downloading"
+                android:textColor="#5C5C5C"
+                android:textSize="15dp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:background="#ddd" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/custom_background_list"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal"
+                android:padding="5dp" >
+
+                <ImageView
+                    android:id="@+id/imageDownlading"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="left|center_horizontal"
+                    android:background="@drawable/transparent" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal" >
+
+                        <TextView
+                            android:id="@+id/titleDownloading"
+                            android:layout_width="205dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="El Mayor Clasico - Mujeres"
+                            android:textColor="#5C5C5C"
+                            android:textSize="14dp" />
+
+                        <TextView
+                            android:id="@+id/time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right|center_vertical"
+                            android:text="2:00PM"
+                            android:textColor="#B0B0B0"
+                            android:textSize="11dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" >
+
+                        <ProgressBar
+                            android:id="@+id/downloadingBar"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="205dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_weight="1"
+                            android:gravity="left|center_vertical"
+                            android:max="100" >
+                        </ProgressBar>
+
+                        <ImageView
+                            android:id="@+id/cancelDownload"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center_vertical"
+                            android:background="@drawable/ic_action_remove"
+                            android:visibility="gone" />
+
+                        <Button
+                            android:id="@+id/openDownload"
+                            android:layout_width="50dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="right|center_vertical"
+                            android:background="#0097CC"
+                            android:onClick="openDownloads"
+                            android:text="@string/open"
+                            android:textColor="#fff"
+                            android:textSize="12dp"
+                            android:visibility="gone" />
+
+                        <Button
+                            android:id="@+id/restartDownload"
+                            android:layout_width="50dp"
+                            android:layout_height="25dp"
+                            android:layout_gravity="right|center_vertical"
+                            android:background="#0097CC"
+                            android:onClick="restartDownload"
+                            android:text="@string/restart"
+                            android:textColor="#fff"
+                            android:textSize="12dp"
+                            android:visibility="gone" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/percentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left|center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="left|center_vertical"
+                        android:textColor="#B0B0B0"
+                        android:textSize="11dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/searchedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <ProgressBar
+            android:id="@+id/loadingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_weight="1"
+            android:visibility="gone" >
+        </ProgressBar>
+
+        <LinearLayout
+            android:id="@+id/videoSearched"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="10dp"
+            android:background="@drawable/custom_background"
+            android:orientation="vertical"
+            android:visibility="gone" >
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_background"
+                android:orientation="horizontal"
+                android:padding="5dp"
+                android:paddingLeft="5dp" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left|center_horizontal"
+                    android:background="@drawable/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/search"
+                    android:textColor="#5C5C5C"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="#ddd" />
+
+            <LinearLayout
+                android:id="@+id/notFound"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"                
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:gravity="center_horizontal|center_vertical"
+        		android:layout_weight="1">
+
+                <ImageView                    
+                    android:layout_width="125dp"
+                    android:layout_height="74dp"         
+                    android:layout_gravity="center_horizontal|center_vertical"           
+                    android:background="@drawable/notfound" />
+                <TextView 
+                    	android:layout_width="wrap_content"
+                    	android:layout_height="wrap_content"
+                    	android:text="@string/noResult"
+                    	android:textColor="#5C5C5C"
+                    	android:textSize="13dp"
+                    />
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/custom_background"
+                android:dividerHeight="@null" >
+            </ListView>
+        </LinearLayout>
+    </LinearLayout>
+	<LinearLayout
+        android:id="@+id/fBanner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+    </LinearLayout>
+</LinearLayout>

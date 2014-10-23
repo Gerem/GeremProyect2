@@ -19,4 +19,6 @@
 	<string name="downloadInProgress">There is another downloading in progress</string>
 	<string name="ad_footer">ca-app-pub-5856956782212778/9382229156</string>
 	<string name="ad_fullscreen">ca-app-pub-5856956782212778/7765895154</string>
+	<string name="introMsg">Here will be the list of videos that you search.</string>
+	<string name="privacyPoliciMsg">Mp3 cant be downloaded this vidio is protected by privacy policy. Please try another video.</string>
 </resources>

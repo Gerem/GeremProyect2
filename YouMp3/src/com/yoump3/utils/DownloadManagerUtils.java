@@ -1,14 +1,15 @@
 package com.yoump3.utils;
 
-import com.caribelabs.utils.Validations;
-
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.IntentFilter;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+
+import com.caribelabs.utils.Validations;
 
 public class DownloadManagerUtils {
 	private String title;
@@ -34,7 +35,9 @@ public class DownloadManagerUtils {
                 					   DownloadManager.Request.NETWORK_MOBILE);
 		request.setAllowedOverRoaming(false);
 		request.setTitle(title);
-		request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+		if (Build.VERSION.SDK_INT>=Build.VERSION_CODES.HONEYCOMB) {
+			request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+		}		
 		request.setDescription(description);
 		
 		if(Validations.validateIsNull(dirPath))

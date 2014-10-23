@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.caribelabs.utils.Utils;
 import com.caribelabs.utils.Validations;
@@ -29,9 +30,11 @@ public class SearchTask extends AsyncTask<String, Integer, String>{
 	private LinearLayout searchLayout;
 	private List<YouTubeVideo> youTubeLst;
 	private LinearLayout notFound;
+	private TextView textView;
 	public SearchTask(Activity context, String query){
 		this.context	= context;
 		this.query   	= query;
+		this.textView	= (TextView) context.findViewById(R.id.introMsg);
 		this.youTubeLst = new ArrayList<YouTubeVideo>();
 		this.listView     	= (ListView) 	  context.findViewById(R.id.list);
 		this.loadingBar = (ProgressBar) context.findViewById(R.id.loadingBar);
@@ -39,6 +42,7 @@ public class SearchTask extends AsyncTask<String, Integer, String>{
 		this.loadingBar.setVisibility(View.VISIBLE);		
 		this.searchLayout.setVisibility(View.GONE);
 		this.notFound  = (LinearLayout) context.findViewById(R.id.notFound);
+		textView.setVisibility(View.GONE);
 		
 	}
 	@Override
@@ -81,7 +85,7 @@ public class SearchTask extends AsyncTask<String, Integer, String>{
 		loadingBar.setVisibility(View.GONE);
 		searchLayout.setVisibility(View.VISIBLE);			
 		notFound.setVisibility(View.GONE);
-	
+		
 		if(Validations.validateListIsNullOrEmpty(youTubeLst))
 			notFound.setVisibility(View.VISIBLE);
 	}

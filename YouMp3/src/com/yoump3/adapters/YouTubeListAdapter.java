@@ -7,13 +7,14 @@ import java.util.Locale;
 import org.ocpsoft.prettytime.PrettyTime;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DownloadManager;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import com.caribelabs.utils.ImageLoader;
@@ -121,49 +121,41 @@ public class YouTubeListAdapter extends ArrayAdapter<YouTubeVideo>{
 		holderView.settingsButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				PopupMenu popup = new PopupMenu(context, v);
-                popup.getMenuInflater().inflate(R.menu.pop_menu,
-                        popup.getMenu());
-                popup.show();
-                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-					@Override
-					public boolean onMenuItemClick(MenuItem item) {
-						
-						switch (item.getItemId()) {
-							case R.id.downloadMp3: 		
-									SharedPreferences preferences = context.getPreferences(context.MODE_PRIVATE);
-							        downloadId = preferences.getLong(Constants.DOWNLOAD_ID, 0); 
-									if(downloadId != 0 ){
-										DownloadManager.Query q = new DownloadManager.Query();
-					                    q.setFilterById(downloadId);
-		
-					                    final Cursor cursor = downloadUtils.getDownloadManager().query(q);
-					                    
-					                    cursor.moveToFirst();
-					                    if ((Validations.validateIsNotNull(cursor) && downloadUtils.statusType(cursor).equals(DownloadManager.STATUS_RUNNING))){
-											Utils.showToastMessage(context, context.getString(R.string.downloadInProgress));	
-											break;
-					                    }
-									}
-				                    GenerateMp3Task generateMp3 = null;
-									ImageLoader imageLoader 	= null;
-									generateMp3 = new GenerateMp3Task(context, tubeVideo,downloadUtils, DownloadType.MP3);
-									generateMp3.execute();
-									
-									imageLoader = new ImageLoader(context,100,70,null);
-									imageLoader.DisplayImage(tubeVideo.getThumbnail(), R.drawable.transparent, downloadingImage);
-									
-									downloadingTitle.setText(tubeVideo.getTitle());
-									downloadingTime.setText(Utils.getNow("hh:mma"));
-									
-									downloadLayout.setVisibility(View.VISIBLE);
-								break;
+				CharSequence colors[] = new CharSequence[] {"Download Mp3"};
+				 AlertDialog.Builder builder = new AlertDialog.Builder(context);	                
+	                builder.setItems(colors, new DialogInterface.OnClickListener() {
+	                    @Override
+	                    public void onClick(DialogInterface dialog, int which) {
+	                    	SharedPreferences preferences = context.getPreferences(context.MODE_PRIVATE);
+					        downloadId = preferences.getLong(Constants.DOWNLOAD_ID, 0); 
+							if(downloadId != 0 ){
+								DownloadManager.Query q = new DownloadManager.Query();
+			                    q.setFilterById(downloadId);
+
+			                    final Cursor cursor = downloadUtils.getDownloadManager().query(q);
+			                    
+			                    cursor.moveToFirst();
+			                    if ((Validations.validateIsNotNull(cursor) && downloadUtils.statusType(cursor).equals(DownloadManager.STATUS_RUNNING))){
+									Utils.showToastMessage(context, context.getString(R.string.downloadInProgress));	
+									return;
+			                    }
+							}
+		                    GenerateMp3Task generateMp3 = null;
+							ImageLoader imageLoader 	= null;
+							generateMp3 = new GenerateMp3Task(context, tubeVideo,downloadUtils, DownloadType.MP3);
+							generateMp3.execute();
 							
-						}
-						return false;
-					}
-                	
-                });			
+							imageLoader = new ImageLoader(context,100,70,null);
+							imageLoader.DisplayImage(tubeVideo.getThumbnail(), R.drawable.transparent, downloadingImage);
+							
+							downloadingTitle.setText(tubeVideo.getTitle());
+							downloadingTime.setText(Utils.getNow("hh:mma"));
+							
+							downloadLayout.setVisibility(View.VISIBLE);
+	                        
+	                    }
+	                });
+	                builder.show();	                				
 			}			
 		});
 		

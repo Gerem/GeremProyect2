@@ -1,6 +1,8 @@
 package com.yoump3.threads;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 import org.json.JSONObject;
@@ -12,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +33,7 @@ import com.yoump3.types.DownloadType;
 import com.yoump3.utils.CallServices;
 import com.yoump3.utils.Constants;
 import com.yoump3.utils.DownloadManagerUtils;
+import com.yoump3.utils.YouMp3Utils;
 
 public class GenerateMp3Task extends AsyncTask<String, Integer, String>{
 	private static Activity context;
@@ -46,6 +50,7 @@ public class GenerateMp3Task extends AsyncTask<String, Integer, String>{
 	private static Button restartDownload;
 	static boolean downloading;
 	private DownloadType downloadType;	
+	private List<Exception> exceptions = new ArrayList<Exception>();
 	public GenerateMp3Task(Activity context, YouTubeVideo youtubeVideo,DownloadManagerUtils downloadUtils, DownloadType downloadType){
 		this.context		= context;		
 		this.youtubeVideo 	= youtubeVideo;
@@ -75,6 +80,9 @@ public class GenerateMp3Task extends AsyncTask<String, Integer, String>{
 		restartDownload.setVisibility(View.GONE);
 		downloading = true;
 	}
+	private static void hideComponents(){
+		downloadLayout.setVisibility(View.GONE);
+	}
 	@Override
 	protected String doInBackground(String... params) {
 		try {
@@ -85,12 +93,18 @@ public class GenerateMp3Task extends AsyncTask<String, Integer, String>{
 				
 			}
 		}catch(Exception e){
-			e.printStackTrace();
+			exceptions.add(e);			
 		}
 		return null;
 	}
 	@Override
-	protected void onPostExecute(String result) {					
+	protected void onPostExecute(String result) {		
+		for (Exception e : exceptions) {			
+			YouMp3Utils.showCustomToast(context, context.getString(R.string.privacyPoliciMsg), Color.RED);	
+			this.hideComponents();
+			resetComponents();
+			return;			
+	    }
 		downloadUtils.setTitle(youtubeVideo.getTitle() + ".mp3");
 		downloadUtils.setDescription(context.getString(R.string.app_name));
 		downloadUtils.setDownloadUrl(youtubeVideo.getDownloadUrl());		
